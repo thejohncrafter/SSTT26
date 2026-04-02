@@ -15,15 +15,50 @@
 %% Abstract metadata
 %% These replace the usual \title, \author commands
 
-\abstracttitle{Title}
+\abstracttitle{Dimensional Information in a Type Theory with a Definitionally Proof Irrelevant Layer}
 
-\abstractspeaker{Speaker}
-\abstractcoauthor{Coauthor}
+\abstractspeaker{Julien Marquet-Wagner}
+\abstractcoauthor{Sophie d'Espalungue}
 
 \begin{document}
 
 %%%%%%%%%%%%%%%%
 %% Abstract main text
+
+\color{black} % Current
+
+We report on an implementation of a dependent type theory that supports
+definitional proof irrelevance. Our type theory is organized into two
+interwoven layers labelled by dimensions $-1$ and $0$, so that every type and
+every term is introduced at a specified dimension. This dimension determines
+the status of equality between terms, as follows. Types of dimension~$-1$ are
+definitionally proof-irrelevant, hence we name them propositions. Types of
+dimension~$0$ have $-1$-dimensional equality types and we name them sets. All
+our results are formalized in Agda \cite{Agda}.
+
+%%%%%%%%%%%%%%%%%%%
+
+Contexts may contain both propositions and sets, letting the two layers
+interact in a nontrivial way. We keep our type theory minimal, with only
+Pi-types, universes, and equality, and explore the behavior of type formers
+with respect the layers.
+
+%%%%%%%%%%%%%%%%%%%
+
+Our approach is close to that of relevance marks \cite{proofirrelwithoutk},
+where relevance information is local at binders. We take a geometric point of
+view and structure the syntax around the notion of dimension instead. This
+allows us to state definitional proof irrelevance without referring to
+universes: any two $-1$-dimensional terms of the same $-1$-dimensional type are
+convertible.
+
+%%%%%%%%%%%%%%%%%%%
+
+Our implementation is derived from an implementation of a minimal type theory
+relying on an extrinsically typed, intrinsically scoped inductive-inductive
+syntax introduced by the first author \cite{IISyntax}. With this approach, the
+dimensional information flows through the definitions almost always silently,
+except where layer-specific behavior is involved.
 
 %%%%%%%%%%%%%%%%
 %% Bibliography, if needed:
