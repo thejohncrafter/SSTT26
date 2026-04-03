@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html><head><meta charset="utf-8"><title>OpsNotation</title><link rel="stylesheet" href="Agda.css"></head><body><pre class="Agda">
+<a id="2" class="Keyword">module</a> <a id="9" href="OpsNotation.html" class="Module">OpsNotation</a> <a id="21" class="Keyword">where</a>
+
+<a id="28" class="Keyword">record</a> <a id="OpNotation"></a><a id="35" href="OpsNotation.html#35" class="Record">OpNotation</a>
+  <a id="48" class="Symbol">(</a><a id="49" href="OpsNotation.html#49" class="Bound">I</a> <a id="51" class="Symbol">:</a> <a id="53" href="Agda.Primitive.html#388" class="Primitive">Set</a><a id="56" class="Symbol">)</a>
+  <a id="60" class="Symbol">(</a><a id="61" href="OpsNotation.html#61" class="Bound">Op</a> <a id="64" class="Symbol">:</a> <a id="66" href="OpsNotation.html#49" class="Bound">I</a> <a id="68" class="Symbol">→</a> <a id="70" href="Agda.Primitive.html#388" class="Primitive">Set</a><a id="73" class="Symbol">)</a>
+  <a id="77" class="Symbol">(</a><a id="78" href="OpsNotation.html#78" class="Bound">F</a> <a id="80" class="Symbol">:</a> <a id="82" class="Symbol">(</a><a id="83" href="OpsNotation.html#83" class="Bound">i</a> <a id="85" class="Symbol">:</a> <a id="87" href="OpsNotation.html#49" class="Bound">I</a><a id="88" class="Symbol">)</a> <a id="90" class="Symbol">→</a> <a id="92" href="OpsNotation.html#61" class="Bound">Op</a> <a id="95" href="OpsNotation.html#83" class="Bound">i</a> <a id="97" class="Symbol">→</a> <a id="99" href="Agda.Primitive.html#388" class="Primitive">Set</a><a id="102" class="Symbol">)</a>
+  <a id="106" class="Symbol">:</a> <a id="108" href="Agda.Primitive.html#388" class="Primitive">Set</a> <a id="112" class="Keyword">where</a>
+  <a id="120" class="Keyword">constructor</a> <a id="mk-op-notation"></a><a id="132" href="OpsNotation.html#132" class="InductiveConstructor">mk-op-notation</a>
+  <a id="149" class="Keyword">field</a>
+    <a id="OpNotation._[_]"></a><a id="159" href="OpsNotation.html#159" class="Field Operator">_[_]</a> <a id="164" class="Symbol">:</a> <a id="166" class="Symbol">(</a><a id="167" href="OpsNotation.html#167" class="Bound">i</a> <a id="169" class="Symbol">:</a> <a id="171" href="OpsNotation.html#49" class="Bound">I</a><a id="172" class="Symbol">)</a> <a id="174" class="Symbol">→</a> <a id="176" class="Symbol">(</a><a id="177" href="OpsNotation.html#177" class="Bound">σ</a> <a id="179" class="Symbol">:</a> <a id="181" href="OpsNotation.html#61" class="Bound">Op</a> <a id="184" href="OpsNotation.html#167" class="Bound">i</a><a id="185" class="Symbol">)</a> <a id="187" class="Symbol">→</a> <a id="189" href="OpsNotation.html#78" class="Bound">F</a> <a id="191" href="OpsNotation.html#167" class="Bound">i</a> <a id="193" href="OpsNotation.html#177" class="Bound">σ</a>
+  <a id="197" class="Keyword">infixl</a> <a id="204" class="Number">25</a> _[_]
+
+<a id="213" class="Keyword">open</a> <a id="218" href="OpsNotation.html#35" class="Module">OpNotation</a> <a id="229" class="Symbol">⦃</a> <a id="231" class="Symbol">...</a> <a id="235" class="Symbol">⦄</a> <a id="237" class="Keyword">public</a>
+</pre></body></html>
