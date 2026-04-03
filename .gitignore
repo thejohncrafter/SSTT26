@@ -20,10 +20,6 @@
 .*.lb
 *.ptb
 
-## Don't push compiled latex
-*.dvi
-*.pdf
-
 # beamer
 *.nav
 *.pre
@@ -37,6 +33,7 @@
 *.bbl
 *.bbl-SAVE-ERROR
 *.bcf
+*.bcf-SAVE-ERROR
 *.blg
 *-blx.aux
 *-blx.bib
