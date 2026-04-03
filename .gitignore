@@ -20,6 +20,10 @@
 .*.lb
 *.ptb
 
+## Don't push compiled latex
+abstract/*.dvi
+abstract/*.pdf
+
 # beamer
 *.nav
 *.pre
