@@ -1,0 +1,160 @@
+\documentclass[aspectratio=1609,10pt]{beamer}
+
+\usepackage[backend=biber]{biblatex}
+\bibliography{slidesbibliography}
+
+\DeclareCiteCommand{\myfootcite}[\mkbibfootnote]
+  {\usebibmacro{prenote}}
+  {\usebibmacro{citeindex}%
+   \mkbibbrackets{\usebibmacro{cite}}%
+   \setunit{\addnbspace}
+   \printnames{labelname}%
+   \setunit{\labelnamepunct}
+   \printfield[citetitle]{title}%
+   \newunit
+   \printfield{year}}
+  {\addsemicolon\space}
+  {\usebibmacro{postnote}}
+
+\usepackage{fontspec}
+\usepackage{unicode-math}
+\setmainfont{CMU Serif}
+\setmathfont{XITS Math}
+
+\usepackage{newunicodechar}
+\newunicodechar{σ}{\ensuremath{σ}}
+\newunicodechar{◆}{\ensuremath{⬩}}
+\newunicodechar{ƛ}{\ensuremath{\bar{λ}}}
+\newunicodechar{⊢}{\ensuremath{⊢}}
+\newunicodechar{≡}{\ensuremath{≡}}
+\newunicodechar{∷}{\ensuremath{∷}}
+\newunicodechar{₁}{\ensuremath{{}_1}}
+\newunicodechar{₂}{\ensuremath{{}_2}}
+\newunicodechar{⊕}{\ensuremath{⊕}}
+
+\usepackage[prologue]{xcolor}
+\definecolor[named]{ACMBlue}{cmyk}{1,0.1,0,0.1}
+\definecolor[named]{ACMYellow}{cmyk}{0,0.16,1,0}
+\definecolor[named]{ACMOrange}{cmyk}{0,0.42,1,0.01}
+\definecolor[named]{ACMRed}{cmyk}{0,0.90,0.86,0}
+\definecolor[named]{ACMLightBlue}{cmyk}{0.49,0.01,0,0}
+\definecolor[named]{ACMGreen}{cmyk}{0.20,0,1,0.19}
+\definecolor[named]{ACMPurple}{cmyk}{0.55,1,0,0.15}
+\definecolor[named]{ACMDarkBlue}{cmyk}{1,0.58,0,0.21}
+
+\usepackage{hyperref}
+\hypersetup{colorlinks,
+  linkcolor=ACMPurple,
+  citecolor=ACMPurple,
+  urlcolor=ACMDarkBlue,
+  filecolor=ACMDarkBlue}
+
+\usepackage{agda}
+\AgdaNoSpaceAroundCode{}
+
+\definecolor{AgdaKeyword}               {named}{ACMPurple}
+
+\definecolor{AgdaInductiveConstructor}  {named}{ACMGreen}
+\definecolor{AgdaCoinductiveConstructor}{named}{ACMGreen}
+\definecolor{AgdaDatatype}              {named}{ACMDarkBlue}
+\definecolor{AgdaField}                 {named}{ACMRed}
+\definecolor{AgdaFunction}              {named}{ACMDarkBlue}
+\definecolor{AgdaPostulate}             {named}{ACMDarkBlue}
+\definecolor{AgdaPrimitive}             {named}{ACMDarkBlue}
+\definecolor{AgdaRecord}                {named}{ACMDarkBlue}
+
+\usepackage{ebproof}
+
+\beamertemplatenavigationsymbolsempty
+\useoutertheme{smoothbars}
+\setbeamertemplate{items}[circle]
+\setbeamertemplate{footline}[frame number]
+\setlength{\parskip}{\baselineskip}
+
+\newenvironment{tightcenter}{%
+  \setlength\topsep{0pt}
+  \setlength\parskip{0pt}
+  \begin{center}
+}{%
+  \end{center}
+}
+
+\newenvironment{tightitemize}{%
+  \setlength\topsep{0pt}
+  \setlength\parskip{0pt}
+  \begin{itemize}
+}{%
+  \end{itemize}
+}
+
+\newenvironment{tightenumerate}{%
+  \setlength\topsep{0pt}
+  \setlength\parskip{0pt}
+  \begin{enumerate}
+}{%
+  \end{enumerate}
+}
+
+\newcommand{\variable}[1]{\AgdaGeneralizable{#1}}
+\newcommand{\paren}[1]{\AgdaSymbol{(}#1\AgdaSymbol{)}}
+
+\newcommand{\IsCtx}[1]{#1\AgdaSpace{}\AgdaSymbol{:}\AgdaSpace{}\AgdaDatatype{Ctx}}
+\newcommand{\IsVar}[2]{#1\AgdaSpace{}\AgdaSymbol{:}\AgdaSpace{}\AgdaDatatype{Var}\AgdaSpace{}#2}
+\newcommand{\IsTyp}[2]{#1\AgdaSpace{}\AgdaSymbol{:}\AgdaSpace{}\AgdaDatatype{Typ}\AgdaSpace{}#2}
+\newcommand{\IsTrm}[2]{#1\AgdaSpace{}\AgdaSymbol{:}\AgdaSpace{}\AgdaDatatype{Trm}\AgdaSpace{}#2}
+
+\newcommand{\IsWkn}[2]{#1\AgdaSpace{}\AgdaSymbol{:}\AgdaSpace{}\AgdaDatatype{Wkn}\AgdaSpace{}#2}
+\newcommand{\IsSub}[2]{#1\AgdaSpace{}\AgdaSymbol{:}\AgdaSpace{}\AgdaDatatype{Sub}\AgdaSpace{}#2}
+
+\newcommand{\Telescope}[2]{\AgdaDatatype{Telescope}\AgdaSpace{}#1\AgdaSpace{}#2}
+
+\newcommand{\CtxNil}{\AgdaInductiveConstructor{◆}}
+\newcommand{\CtxExt}[2]{#1\AgdaSpace{}\AgdaInductiveConstructor{,}\AgdaSpace{}#2}
+\newcommand{\VarZro}{\AgdaInductiveConstructor{z}}
+\newcommand{\VarSuc}[1]{\AgdaInductiveConstructor{s}\AgdaSpace{}#1}
+\newcommand{\TypArr}[2]{\AgdaInductiveConstructor{Π}\AgdaSpace{}#1\AgdaSpace{}#2}
+\newcommand{\TypU}{\AgdaInductiveConstructor{U}}
+\newcommand{\TypE}[1]{\AgdaInductiveConstructor{E}\AgdaSpace{}#1}
+\newcommand{\TrmVar}[2]{\AgdaInductiveConstructor{`}\AgdaSpace{}#1\AgdaSpace{}#2}
+\newcommand{\TrmLam}[3]{\AgdaInductiveConstructor{ƛ}\AgdaSpace{}#1\AgdaSpace{}#2\AgdaSpace{}#3}
+\newcommand{\TrmApp}[4]{\AgdaInductiveConstructor{·}\AgdaSpace{}#1\AgdaSpace{}#2\AgdaSpace{}#3\AgdaSpace{}#4}
+
+\newcommand{\WknWkn}[1]{\AgdaInductiveConstructor{wkn}\AgdaSpace{}#1}
+\newcommand{\WknExt}[2]{#1\AgdaSpace{}\AgdaInductiveConstructor{,}\AgdaSpace{}#2}
+\newcommand{\SubSub}[1]{\AgdaInductiveConstructor{sub}\AgdaSpace{}#1}
+\newcommand{\SubExt}[2]{#1\AgdaSpace{}\AgdaInductiveConstructor{,}\AgdaSpace{}#2}
+\newcommand{\RewRew}[2]{\AgdaInductiveConstructor{rew}\AgdaSpace{}#1\AgdaSpace{}#2}
+\newcommand{\RewExt}[2]{#1\AgdaSpace{}\AgdaInductiveConstructor{,}\AgdaSpace{}#2}
+\newcommand{\Ops}[2]{#1\AgdaSpace{}\AgdaOperator{\AgdaField{[}}\AgdaSpace{}#2\AgdaSpace{}\AgdaOperator{\AgdaField{]}}}
+\newcommand{\OpsExt}[2]{#1\AgdaSpace{}\AgdaInductiveConstructor{,}\AgdaSpace{}#2}
+
+\newcommand{\vartyp}[1]{\AgdaFunction{var-typ}\AgdaSpace{}#1}
+\newcommand{\TypConv}[3]{#1\AgdaSpace{}\AgdaDatatype{⊢}\AgdaSpace{}#2\AgdaSpace{}\AgdaDatatype{≡}\AgdaSpace{}#3}
+\newcommand{\Typing}[3]{#1\AgdaSpace{}\AgdaDatatype{⊢}\AgdaSpace{}#2\AgdaSpace{}\AgdaDatatype{∷}\AgdaSpace{}#3}
+
+\newcommand{\CtxTyping}[1]{#1\AgdaSpace{}\AgdaOperator{\AgdaDatatype{⊢}}}
+\newcommand{\TypTyping}[2]{#1\AgdaSpace{}\AgdaOperator{\AgdaDatatype{⊢}}\AgdaSpace{}#2}
+\newcommand{\TrmTyping}[3]{#1\AgdaSpace{}\AgdaOperator{\AgdaDatatype{⊢}}\AgdaSpace{}#2\AgdaSpace{}\AgdaOperator{\AgdaDatatype{∷}}\AgdaSpace{}#3}
+\newcommand{\WknTyping}[2]{#1\AgdaSpace{}\AgdaOperator{\AgdaDatatype{⊢}}\AgdaSpace{}#2\AgdaSpace{}\AgdaOperator{\AgdaDatatype{∷wkn}}}
+\newcommand{\SubTyping}[2]{#1\AgdaSpace{}\AgdaOperator{\AgdaDatatype{⊢}}\AgdaSpace{}#2\AgdaSpace{}\AgdaOperator{\AgdaDatatype{∷sub}}}
+\newcommand{\RewTyping}[2]{#1\AgdaSpace{}\AgdaOperator{\AgdaDatatype{⊢}}\AgdaSpace{}#2\AgdaSpace{}\AgdaOperator{\AgdaDatatype{∷rew}}}
+
+\title{Dimensional Information in a Type Theory \\ with a Definitionally Proof Irrelevant Layer}
+\author{Julien Marquet-Wagner \inst{1} \and Sophie d'Espalungue \inst{2}}
+\institute{
+  \inst{1} École normale supérieure -- PSL, Paris, France \\
+  \texttt{julien.marquet@ens.fr}
+  \and
+  \inst{2} IRIF, CNRS, Paris, France \\
+  \texttt{despalungue@irif.fr}
+}
+\date{
+  June 5, 2026
+}
+
+\begin{document}
+
+\frame[plain]{\titlepage}
+
+\end{document}
+
