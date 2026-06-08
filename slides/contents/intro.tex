@@ -1,0 +1,77 @@
+\section{Introduction}
+
+\begin{frame}
+  \frametitle{Our Work}
+
+  \pause An implementation\footnote{\url{https://github.com/thejohncrafter/SSTT26/}}
+  of a type theory in Agda.
+
+  \pause Featuring \textbf{Definitional Proof-Irrelevance}
+  \begin{tightcenter}
+    Let $P$ be a proposition and $p,q:P$ be proofs. \\
+    We have $p≡q$.
+  \end{tightcenter}
+
+  \pause Methods
+  \begin{tightitemize}
+    \item<+(1)-> A methodology for mechanizations of dependent type
+      theories\myfootcite{marquet}.
+    \item<+(1)-> A framework for building $n$-categories inductively from their
+      $(n-1)$-categories of morphisms\myfootcite{despalungue}.
+    \item<+(1)-> \textbf{Dimensional layers to control (ir)relevance.}
+  \end{tightitemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{This Talk}
+
+  \pause This talk is about how thinking in terms of categorical dimension
+  is useful for implementers.
+
+  \pause I am convinced it is, because this point of view got me a simple
+  solution to a difficult engineering problem.
+
+  \begin{enumerate}
+    \item<+(1)-> Reference implementations: following
+      Gilbert~\textit{et.~al.}\myfootcite{gilbert}.
+    \item<+(1)-> My approach to implementing type theory.
+    \item<+(1)-> How the two don't match.
+    \item<+(1)-> How to resolve this tension and the geometrical nature of the
+      solution.
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}
+  \frametitle{If You Only Remember One Slide}
+
+  \pause
+  low-dimensional category theory
+  \begin{tightcenter}
+    \begin{tabular}{ll@{}r}
+      Sets         & dim. &  0 \\
+      Propositions & dim. & -1
+    \end{tabular}
+  \end{tightcenter}
+
+  This dimension determines the status of equality:
+  
+  \begin{minipage}[t]{0.4\textwidth}
+    \begin{tightcenter}
+    \textbf{For Propositions}
+    \end{tightcenter}
+
+    $P$ a proposition and $p,q:P$ proofs \\
+    We have $p≡q$ meaning $p$ and $q$ are definitionally equal.
+  \end{minipage}
+  \hspace{0.09\textwidth}
+  \begin{minipage}[t]{0.4\textwidth}
+    \begin{tightcenter}
+    \textbf{For Sets}
+    \end{tightcenter}
+
+    $X$ a set and $x,y:X$ points \\
+    There is a proposition denoted $x=y$, of which proofs witness the equality
+    of $x$ and $y$.
+  \end{minipage}
+\end{frame}
+

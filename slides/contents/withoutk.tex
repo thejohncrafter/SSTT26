@@ -1,0 +1,57 @@
+\section{Reference Implementation}
+
+\begin{frame}
+  \frametitle{\textit{Definitional Proof-Irrelevance without K}}
+
+  \pause \textit{Gilbert, Cockx, Sozeau, and Tabareau}
+  describe\myfootcite{gilbert} the implementation of definitional
+  proof-irrelevance in Rocq and Agda.
+
+  \pause The statement is as follows\footnote{loc.~cit. §3.2}
+  \begin{tightcenter}
+    \begin{prooftree}
+      \hypo{Γ\,⊢\,A\,:\,\textsc{sProp}}
+      \hypo{Γ\,⊢\,x\,:\,A}
+      \hypo{Γ\,⊢\,y\,:\,A}
+      \infer3{Γ\,⊢\,x\,≡\,y\,:\,A}
+    \end{prooftree}
+  \end{tightcenter}
+
+  \pause Notice how $A$ can feely appear on the left and on the right of the
+  colon. In their definition of the type theory\footnote{loc.~cit. Figure 1},
+  types and terms are defined at the same time with the following BNF
+  \begin{tightcenter}
+    \begin{tabular}{rcl}
+      $A,B,M,N$ & $::=$ & $\textsc{Type}_i∣x∣λx:A.M∣Πx:A.B∣Σx:A.B∣π_1\,M∣π_2\,M∣(M,N)$ \\
+      $Γ,Δ$ & $::=$ & $.∣Γ,x:A$
+    \end{tabular}
+  \end{tightcenter}
+
+  \pause \textbf{Terminology.} Types and terms are merged in 
+  \textit{expressions}.
+\end{frame}
+
+\begin{frame}
+  \frametitle{Types, Terms, and Expressions}
+
+  \pause Working with expressions (no distinction between types and terms)
+  makes the left and the right of the colon ``~:~'' uniform.
+
+  \pause Universes control the (ir)relevance of the data:
+  \begin{tightcenter}
+    \begin{prooftree}
+      \hypo{...}
+      \hypo{Γ\,⊢\,A\,:\,\textsc{Type}}
+      \hypo{...}
+      \infer3{\text{$A$ is proof-relevant}}
+    \end{prooftree}
+    \hspace{3em}
+    \begin{prooftree}
+      \hypo{...}
+      \hypo{Γ\,⊢\,A\,:\,\textsc{sProp}}
+      \hypo{...}
+      \infer3{\text{$A$ is proof-irrelevant}}
+    \end{prooftree}
+  \end{tightcenter}
+\end{frame}
+

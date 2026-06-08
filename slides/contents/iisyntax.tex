@@ -1,0 +1,138 @@
+\section{Intrinsically Scoped, Extrinsically Typed Syntaxes}
+
+\newcommand{\declentry}[2]{
+    \AgdDta{#1}\AgdaSpace{}
+  & \AgdaSymbol{:}\AgdaSpace{}
+  & #2
+}
+
+\begin{frame}
+  \frametitle{Mechanizing Type Theory: A Methodology}
+
+  \pause I am working on an \textit{intrinsically scoped} and
+  \textit{extrinsically typed} presentation of type
+  theory\myfootcite{marquet}. The formal construction happens in two stages.
+  \begin{tightenumerate}
+    \item<+(1)-> Well-scoped, untyped syntax.
+    \item<+(1)-> Typing derivations.
+  \end{tightenumerate}
+
+  \pause
+  \begin{center}
+    \begin{tabular}{l@{\hskip 3em}l@{\hskip 3em}l}
+      \textit{Data Type} & \textit{Typing Derivation} & \textit{Meaning}
+      \\
+      \pause
+      \\ \IsCtx{\variable{Γ}}
+      &  \CtxTyping{\variable{Γ}}
+      &  \variable{Γ} is a well-formed context
+      \pause
+      \\ \IsVar{\variable{v}}{\variable{Γ}}
+      &  {\tiny \textit{(none)}}
+      &  \variable{v} is a variable in \variable{Γ}
+      \pause
+      \\ \IsTyp{\variable{A}}{\variable{Γ}}
+      &  \TypTyping{\variable{Γ}}{\variable{A}}
+      &  \variable{A} is well-formed in context \variable{Γ}
+      \pause
+      \\ \IsTrm{\variable{t}}{\variable{Γ}}
+      &  \TrmTyping{\variable{Γ}}{\variable{t}}{\variable{A}}
+      &  \variable{t} has type \variable{A} in context \variable{Γ}
+    \end{tabular}
+  \end{center}
+
+  \pause Specificity of my approach: notice how variables, types and terms
+  are required to live in a context.
+\end{frame}
+
+\begin{frame}
+  \frametitle{Russell/Tarski Universes}
+
+  \pause In my work, I want types and terms to be distinct. There is a decoding
+  operation that injects terms into types, together with the appropriate typing
+  rules.
+
+  \pause Gilbert et.~al.\myfootcite{gilbert} don't have this decoding
+  operation as their types and terms are merged into expressions.
+
+  \pause Merging types with terms allows for \textbf{Russell} universes,
+  and keeping them separate forces a \textbf{Tarski} presentation.
+\end{frame}
+
+\begin{frame}
+  \frametitle{Problem.}
+
+  \pause Controlling relevance in Russell style:
+  \begin{tightcenter}
+    \begin{prooftree}
+      \hypo{...}
+      \hypo{Γ\,⊢\,A\,:\,\textsc{Type}}
+      \hypo{...}
+      \infer3{\text{$A$ is proof-relevant}}
+    \end{prooftree}
+    \hspace{3em}
+    \begin{prooftree}
+      \hypo{...}
+      \hypo{Γ\,⊢\,A\,:\,\textsc{sProp}}
+      \hypo{...}
+      \infer3{\text{$A$ is proof-irrelevant}}
+    \end{prooftree}
+  \end{tightcenter}
+
+  \pause \textbf{Problem.} Because I don't merge types and terms in
+  expressions, I can't even write $A\,:\,\textsc{Prop}$ as above.
+
+  \pause All I really want is an equivalent of the following rule
+  \begin{tightcenter}
+    \begin{prooftree}
+      \hypo{Γ\,⊢\,A\,:\,\textsc{sProp}}
+      \hypo{Γ\,⊢\,x\,:\,A}
+      \hypo{Γ\,⊢\,y\,:\,A}
+      \infer3{Γ\,⊢\,x\,≡\,y\,:\,A}
+    \end{prooftree}
+  \end{tightcenter}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Solution.}
+
+  \pause All I really want is an equivalent of the following rule
+  \begin{tightcenter}
+    \begin{prooftree}
+      \hypo{Γ\,⊢\,A\,:\,\textsc{sProp}}
+      \hypo{Γ\,⊢\,x\,:\,A}
+      \hypo{Γ\,⊢\,y\,:\,A}
+      \infer3{Γ\,⊢\,x\,≡\,y\,:\,A}
+    \end{prooftree}
+  \end{tightcenter}
+
+  \pause In this rule, all I really need to know if whether types are
+  relevant or not.
+  \begin{tightcenter}
+    \textbf{Bake the relevance information into the syntax.}
+  \end{tightcenter}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Baking relevance information into the syntax?}
+
+  \pause For dependent type theory (without proof irrelevance), in my
+  mechanization, I define contexts, variable, types and terms.
+
+  \pause To ``bake relevance information into the syntax'', the idea is to
+  split types and terms along the relevant/irrelevant distinction. We get
+  \begin{tightitemize}
+    \item<+(1)-> Contexs
+    \item<+(1)-> Variables (relevant)
+    \item<+(1)-> Variables (irrelevant)
+    \item<+(1)-> Types (relevant)
+    \item<+(1)-> Types (irrelevant)
+    \item<+(1)-> Terms (relevant)
+    \item<+(1)-> Terms (irrelevant)
+  \end{tightitemize}
+
+  \pause Sounds naïve... \\
+  \textbf{Next section:} how this makes sense from the point of
+  view of low-dimensional category theory!
+\end{frame}
+

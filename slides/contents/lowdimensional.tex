@@ -1,0 +1,195 @@
+\section{Low-Dimensional Categories}
+
+\begin{frame}
+  \frametitle{Idea}
+
+  \pause Introducing dimension fixes the issue.
+
+  \pause Insight from Sophie's theory of higher dimensional structures:
+  \begin{tightitemize}
+    \item<+(1)-> Dimension (sizing) is intrinsic.
+    \item<+(1)-> The formation rule of identity types decreases (size and)
+      dimension.
+  \end{tightitemize}
+
+  \pause The formation rule of identity types should look like
+  \begin{tightcenter}
+    \begin{prooftree}
+      \hypo{Γ\,⊢\,A\quad\text{$n$-type}}
+      \hypo{Γ\,⊢\,x\,:\,A}
+      \hypo{Γ\,⊢\,y\,:\,A}
+      \infer3{Γ\,⊢\,x\,=\,y\quad\text{$(n-1)$-type}}
+    \end{prooftree}
+  \end{tightcenter}
+
+  \pause In this work the relevant dimensions are -1 and 0 --- propositions and
+  sets.
+\end{frame}
+
+\newcommand{\dimdeclentry}[2]{
+    \AgdDta{#1}\AgdaSpace{}
+  & \AgdaSymbol{:}\AgdaSpace{}
+  & #2
+}
+
+\begin{frame}
+  \frametitle{Dimension}
+
+  \pause For our type theory with definitional proof-irrelevance, we will
+  only need two dimensions: one for sets, and one for propositions.
+
+  \pause Sets are $0$-dimensional, therefore the identity types of points of
+  sets are $(-1)$-dimensional. We denote dimension $0$ and $-1$ as follows
+
+  \pause \fbox{\Dim\AgdaSpace{}\AgdaSymbol{:}\AgdaSpace{}\AgdaPrimitive{Set}}
+  \begin{tightcenter}
+    \begin{prooftree}
+      \infer0{\text{\IsDim{\DimNeg}}}
+    \end{prooftree}
+    \hspace{5em}
+    \begin{prooftree}
+      \infer0{\text{\IsDim{\DimZro}}}
+    \end{prooftree}
+  \end{tightcenter}
+
+  \pause The well-scoped, untyped syntax now has signature
+  \begin{tightcenter}
+    \begin{tabular}{@{}l@{}l@{}l@{}}
+         \dimdeclentry{\Ctx}{\AgdSet}
+      \\ \dimdeclentry{\Var}{\AgdArr{\Ctx}{\AgdArr{\Dim}{\AgdSet}}}
+      \\ \dimdeclentry{\Typ}{\AgdArr{\Ctx}{\AgdArr{\Dim}{\AgdSet}}}
+      \\ \dimdeclentry{\Trm}{\AgdArr{\Ctx}{\AgdArr{\Dim}{\AgdSet}}}
+    \end{tabular}
+  \end{tightcenter}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Sets and Propositions}
+
+  \begin{tightcenter}
+    \begin{tabular}{lll}
+         \pause
+         \implicit{\IsTyp{\variable{P}}{\variable{Γ}}[\DimNeg]}
+      &  \TypTyping{\variable{Γ}}{\variable{P}}
+      &  \variable{P} is a proposition
+      \\ \pause
+         \implicit{\IsTyp{\variable{X}}{\variable{Γ}}[\DimZro]}
+      &  \TypTyping{\variable{Γ}}{\variable{X}}
+      &  \variable{X} is a set
+      \\ \pause
+         \implicit{\IsTrm{\variable{p}}{\variable{Γ}}[\DimNeg]}
+      &  \TrmTyping{\variable{Γ}}{\variable{p}}{\variable{P}}
+      &  \variable{p} is a proof of \variable{P}
+      \\ \pause
+         \implicit{\IsTrm{\variable{x}}{\variable{Γ}}[\DimZro]}
+      &  \TrmTyping{\variable{Γ}}{\variable{x}}{\variable{P}}
+      &  \variable{x} is a point of \variable{X}
+    \end{tabular}
+  \end{tightcenter}
+
+  \pause The statement of proof-irrelevance for propositions is now
+  \begin{tightcenter}
+    \begin{prooftree}
+      \hypo{
+        \begin{tabular}{c}
+             \text{\implicit{\IsCtx{\variable{Γ}}}}
+          \\ \text{\CtxTyping{\variable{Γ}}}
+        \end{tabular}
+      }
+      \hypo{
+        \begin{tabular}{c}
+             \text{\implicit{\IsTyp{\variable{P}}{\variable{Γ}}[\DimNeg]}}
+          \\ \text{\TypTyping{\variable{Γ}}{\variable{P}}}
+        \end{tabular}
+      }
+      \hypo{
+        \begin{tabular}{c}
+             \text{\implicit{\IsTrm{\variable{p}}{\variable{Γ}}[\DimNeg]}}
+          \\ \text{\text{\TrmTyping{\variable{Γ}}{\variable{p}}{\variable{P}}}}
+        \end{tabular}
+      }
+      \hypo{
+        \begin{tabular}{c}
+             \text{\implicit{\IsTrm{\variable{q}}{\variable{Γ}}[\DimNeg]}}
+          \\ \text{\TrmTyping{\variable{Γ}}{\variable{q}}{\variable{P}}}
+        \end{tabular}
+      }
+      \infer4{\text{\TrmConv{\variable{Γ}}{\variable{p}}{\variable{q}}{\variable{P}}}}
+    \end{prooftree}
+  \end{tightcenter}
+
+  \pause And identity types for sets are now
+  \begin{tightcenter}
+    \begin{prooftree}
+      \hypo{
+        \begin{tabular}{c}
+             \text{\implicit{\IsCtx{\variable{Γ}}}}
+          \\ \text{\CtxTyping{\variable{Γ}}}
+        \end{tabular}
+      }
+      \hypo{
+        \begin{tabular}{c}
+             \text{\implicit{\IsTyp{\variable{X}}{\variable{Γ}}[\DimZro]}}
+          \\ \text{\TypTyping{\variable{Γ}}{\variable{X}}}
+        \end{tabular}
+      }
+      \hypo{
+        \begin{tabular}{c}
+             \text{\implicit{\IsTrm{\variable{x}}{\variable{Γ}}[\DimZro]}}
+          \\ \text{\text{\TrmTyping{\variable{Γ}}{\variable{x}}{\variable{X}}}}
+        \end{tabular}
+      }
+      \hypo{
+        \begin{tabular}{c}
+             \text{\implicit{\IsTrm{\variable{y}}{\variable{Γ}}[\DimZro]}}
+          \\ \text{\TrmTyping{\variable{Γ}}{\variable{y}}{\variable{X}}}
+        \end{tabular}
+      }
+      %\infer4{\text{\TrmConv{\variable{Γ}}{\variable{t}}{\variable{u}}{\variable{A}}}}
+      \infer4{\text{\TypTyping{\variable{Γ}}{\TypEq{\variable{x}}{\variable{y}}}}}
+    \end{prooftree}
+  \end{tightcenter}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Dimension-Generic Behavior}
+
+  \pause More insight from Sophie's work: The formation rule of Π-types should
+  look like
+  \begin{tightcenter}
+    \begin{prooftree}
+      \hypo{Γ\,⊢\,A\quad\text{$n$-type}}
+      \hypo{Γ,\,x\,:\,A\,⊢\,B\quad\text{$m$-type}}
+      \infer2{Γ\,⊢\,Π\,x\,:\,A.\,B\quad\text{$m$-type}}
+    \end{prooftree}
+  \end{tightcenter}
+
+  \pause The mechanized definition of the above is exactly the same:
+  there is no reference to the specific value of the dimensions.
+
+  \begin{tightcenter}
+    \begin{prooftree}
+      \hypo{\text{\implicit{\IsDim{\variable{d₀}\AgdaSpace{}\variable{d₁}}}}}
+      \hypo{
+        \begin{tabular}{c}
+             \text{\implicit{\IsCtx{\variable{Γ}}}}
+          \\ \text{\CtxTyping{\variable{Γ}}}
+        \end{tabular}
+      }
+      \hypo{
+        \begin{tabular}{c}
+             \text{\implicit{\IsTyp{\variable{A}}{\variable{Γ}}[\variable{d₀}]}}
+          \\ \text{\TypTyping{\variable{Γ}}{\variable{B}}}
+        \end{tabular}
+      }
+      \hypo{
+        \begin{tabular}{c}
+             \text{\implicit{\IsTyp{\variable{B}}{\CtxExt{\variable{Γ}}{\variable{A}}}[\variable{d₁}]}}
+          \\ \text{\TypTyping{\CtxExt{\variable{Γ}}{\variable{B}}}{\variable{B}}}
+        \end{tabular}
+      }
+      \infer4{\text{\TypTyping{\variable{Γ}}{\TypArr{\variable{A}}{\variable{B}}}}}
+    \end{prooftree}
+  \end{tightcenter}
+\end{frame}
+

@@ -1,20 +1,22 @@
 \documentclass[aspectratio=1609,10pt]{beamer}
 
 \usepackage[backend=biber]{biblatex}
-\bibliography{slidesbibliography}
+\bibliography{bibliography}
 
 \DeclareCiteCommand{\myfootcite}[\mkbibfootnote]
   {\usebibmacro{prenote}}
   {\usebibmacro{citeindex}%
-   \mkbibbrackets{\usebibmacro{cite}}%
-   \setunit{\addnbspace}
-   \printnames{labelname}%
+   %\mkbibbrackets{\usebibmacro{cite}}%
+   %\setunit{\addnbspace}
+   \usebibmacro{author}%
    \setunit{\labelnamepunct}
    \printfield[citetitle]{title}%
    \newunit
    \printfield{year}}
   {\addsemicolon\space}
   {\usebibmacro{postnote}}
+\renewcommand*{\thefootnote}{\fnsymbol{footnote}}
+\AtBeginEnvironment{frame}{\setcounter{footnote}{1}}
 
 \usepackage{fontspec}
 \usepackage{unicode-math}
@@ -28,9 +30,11 @@
 \newunicodechar{⊢}{\ensuremath{⊢}}
 \newunicodechar{≡}{\ensuremath{≡}}
 \newunicodechar{∷}{\ensuremath{∷}}
+\newunicodechar{₀}{\ensuremath{{}_0}}
 \newunicodechar{₁}{\ensuremath{{}_1}}
 \newunicodechar{₂}{\ensuremath{{}_2}}
 \newunicodechar{⊕}{\ensuremath{⊕}}
+\newunicodechar{≃}{\ensuremath{≃}}
 
 \usepackage[prologue]{xcolor}
 \definecolor[named]{ACMBlue}{cmyk}{1,0.1,0,0.1}
@@ -41,6 +45,9 @@
 \definecolor[named]{ACMGreen}{cmyk}{0.20,0,1,0.19}
 \definecolor[named]{ACMPurple}{cmyk}{0.55,1,0,0.15}
 \definecolor[named]{ACMDarkBlue}{cmyk}{1,0.58,0,0.21}
+
+\usepackage{transparent}
+\NewDocumentCommand{\implicit}{m}{\texttransparent{0.5}{#1}}
 
 \usepackage{hyperref}
 \hypersetup{colorlinks,
@@ -95,19 +102,33 @@
   \end{enumerate}
 }
 
+\newcommand{\AgdSet}{\AgdaPrimitive{Set}}
+\newcommand{\AgdCln}{\AgdaSpace{}\AgdaSymbol{:}\AgdaSpace{}}
+\newcommand{\AgdDta}[1]{\AgdaKeyword{data}\AgdaSpace{}#1}
+\newcommand{\AgdArr}[2]{#1\AgdaSpace{}\AgdaSymbol{→}\AgdaSpace{}#2}
+
+\newcommand{\Dim}{\AgdaDatatype{Dim}}
+\newcommand{\Ctx}{\AgdaDatatype{Ctx}}
+\newcommand{\Var}{\AgdaDatatype{Var}}
+\newcommand{\Typ}{\AgdaDatatype{Typ}}
+\newcommand{\Trm}{\AgdaDatatype{Trm}}
+
 \newcommand{\variable}[1]{\AgdaGeneralizable{#1}}
 \newcommand{\paren}[1]{\AgdaSymbol{(}#1\AgdaSymbol{)}}
 
-\newcommand{\IsCtx}[1]{#1\AgdaSpace{}\AgdaSymbol{:}\AgdaSpace{}\AgdaDatatype{Ctx}}
-\newcommand{\IsVar}[2]{#1\AgdaSpace{}\AgdaSymbol{:}\AgdaSpace{}\AgdaDatatype{Var}\AgdaSpace{}#2}
-\newcommand{\IsTyp}[2]{#1\AgdaSpace{}\AgdaSymbol{:}\AgdaSpace{}\AgdaDatatype{Typ}\AgdaSpace{}#2}
-\newcommand{\IsTrm}[2]{#1\AgdaSpace{}\AgdaSymbol{:}\AgdaSpace{}\AgdaDatatype{Trm}\AgdaSpace{}#2}
+\NewDocumentCommand{\IsDim}{m  }{#1\AgdaSpace{}\AgdaSymbol{:}\AgdaSpace{}\AgdaDatatype{Dim}}
+\NewDocumentCommand{\IsCtx}{m  }{#1\AgdaSpace{}\AgdaSymbol{:}\AgdaSpace{}\AgdaDatatype{Ctx}}
+\NewDocumentCommand{\IsVar}{mmo}{#1\AgdaSpace{}\AgdaSymbol{:}\AgdaSpace{}\AgdaDatatype{Var}\AgdaSpace{}#2\IfValueT{#3}{\AgdaSpace{}#3}}
+\NewDocumentCommand{\IsTyp}{mmo}{#1\AgdaSpace{}\AgdaSymbol{:}\AgdaSpace{}\AgdaDatatype{Typ}\AgdaSpace{}#2\IfValueT{#3}{\AgdaSpace{#3}}}
+\NewDocumentCommand{\IsTrm}{mmo}{#1\AgdaSpace{}\AgdaSymbol{:}\AgdaSpace{}\AgdaDatatype{Trm}\AgdaSpace{}#2\IfValueT{#3}{\AgdaSpace{}#3}}
 
 \newcommand{\IsWkn}[2]{#1\AgdaSpace{}\AgdaSymbol{:}\AgdaSpace{}\AgdaDatatype{Wkn}\AgdaSpace{}#2}
 \newcommand{\IsSub}[2]{#1\AgdaSpace{}\AgdaSymbol{:}\AgdaSpace{}\AgdaDatatype{Sub}\AgdaSpace{}#2}
 
 \newcommand{\Telescope}[2]{\AgdaDatatype{Telescope}\AgdaSpace{}#1\AgdaSpace{}#2}
 
+\newcommand{\DimNeg}{\AgdaInductiveConstructor{-1d}}
+\newcommand{\DimZro}{\AgdaInductiveConstructor{+0d}}
 \newcommand{\CtxNil}{\AgdaInductiveConstructor{◆}}
 \newcommand{\CtxExt}[2]{#1\AgdaSpace{}\AgdaInductiveConstructor{,}\AgdaSpace{}#2}
 \newcommand{\VarZro}{\AgdaInductiveConstructor{z}}
@@ -115,6 +136,7 @@
 \newcommand{\TypArr}[2]{\AgdaInductiveConstructor{Π}\AgdaSpace{}#1\AgdaSpace{}#2}
 \newcommand{\TypU}{\AgdaInductiveConstructor{U}}
 \newcommand{\TypE}[1]{\AgdaInductiveConstructor{E}\AgdaSpace{}#1}
+\newcommand{\TypEq}[2]{#1\AgdaSpace{}\AgdaInductiveConstructor{≃}\AgdaSpace{}#2}
 \newcommand{\TrmVar}[2]{\AgdaInductiveConstructor{`}\AgdaSpace{}#1\AgdaSpace{}#2}
 \newcommand{\TrmLam}[3]{\AgdaInductiveConstructor{ƛ}\AgdaSpace{}#1\AgdaSpace{}#2\AgdaSpace{}#3}
 \newcommand{\TrmApp}[4]{\AgdaInductiveConstructor{·}\AgdaSpace{}#1\AgdaSpace{}#2\AgdaSpace{}#3\AgdaSpace{}#4}
@@ -130,6 +152,7 @@
 
 \newcommand{\vartyp}[1]{\AgdaFunction{var-typ}\AgdaSpace{}#1}
 \newcommand{\TypConv}[3]{#1\AgdaSpace{}\AgdaDatatype{⊢}\AgdaSpace{}#2\AgdaSpace{}\AgdaDatatype{≡}\AgdaSpace{}#3}
+\NewDocumentCommand{\TrmConv}{mmmm}{#1\AgdaSpace{}\AgdaDatatype{⊢}\AgdaSpace{}#2\AgdaSpace{}\AgdaDatatype{≡}\AgdaSpace{}#3\AgdaSpace{}\AgdaDatatype{∷}\AgdaSpace{}#4}
 \newcommand{\Typing}[3]{#1\AgdaSpace{}\AgdaDatatype{⊢}\AgdaSpace{}#2\AgdaSpace{}\AgdaDatatype{∷}\AgdaSpace{}#3}
 
 \newcommand{\CtxTyping}[1]{#1\AgdaSpace{}\AgdaOperator{\AgdaDatatype{⊢}}}
@@ -155,6 +178,20 @@
 \begin{document}
 
 \frame[plain]{\titlepage}
+
+\input{contents/intro.tex}
+\input{contents/withoutk.tex}
+\input{contents/iisyntax.tex}
+\input{contents/lowdimensional.tex}
+\input{contents/conclusion.tex}
+
+\appendix
+
+\begin{frame}%[allowframebreaks]
+  \frametitle{Bibliography}
+
+  \printbibliography
+\end{frame}
 
 \end{document}
 
