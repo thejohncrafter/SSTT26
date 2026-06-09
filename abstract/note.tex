@@ -48,16 +48,16 @@ with respect the layers.
 
 Our approach is close to that of relevance marks \cite{proofirrelwithoutk},
 where relevance information is local at binders. We take a geometric point of
-view and structure the syntax around the notion of dimension instead. This
-allows us to state definitional proof irrelevance without referring to
-universes: any two $-1$-dimensional terms of the same $-1$-dimensional type are
-convertible.
+view and structure the syntax around the notion of dimension instead, following
+work of the second author \cite{despalungue}. This allows us to state
+definitional proof irrelevance without referring to universes: any two
+$-1$-dimensional terms of the same $-1$-dimensional type are convertible.
 
 %%%%%%%%%%%%%%%%%%%
 
 Our implementation is derived from an implementation of a minimal type theory
 relying on an extrinsically typed, intrinsically scoped inductive-inductive
-syntax introduced by the first author \cite{IISyntax}. With this approach, the
+syntax introduced by the first author \cite{marquet}. With this approach, the
 dimensional information flows through the definitions almost always silently,
 except where layer-specific behavior is involved.
 
